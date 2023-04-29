@@ -1,10 +1,8 @@
 const createOFFClient = require('./utils/createOFFClient.js')
+const no_id_message = 'EAN is missing or not valid.'
 const express = require('express')
 const app = express()
 const port = 8899
-
-
-const no_id_message = 'EAN is missing or not valid.'
 
 app.get('/ean/:id', async (req, res) => {
   const { params: { id } } = req

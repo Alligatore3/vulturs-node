@@ -1,10 +1,13 @@
 const createOFFClient = require('./utils/createOFFClient.js')
 const no_id_message = 'EAN is missing or not valid.'
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const port = 8899
 
-app.get('/ean/:id', async (req, res) => {
+app.use(cors())
+
+app.get('/product/:id', async (req, res) => {
   const { params: { id } } = req
 
   if (!id) return res.send(no_id_message)
@@ -15,7 +18,7 @@ app.get('/ean/:id', async (req, res) => {
   const client = createOFFClient()
   const product = await client.getProduct(ean)
 
-  res.send({ product })
+  res.send(product)
   return;
 })
 

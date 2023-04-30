@@ -5,6 +5,7 @@ const cors = require('cors')
 const app = express()
 const port = 8899
 
+// @see https://expressjs.com/en/resources/middleware/cors.html
 app.use(cors())
 
 app.get('/product/:id', async (req, res) => {

@@ -1,5 +1,5 @@
 const createOFFClient = require('./utils/createOFFClient.js')
-const no_id_message = 'EAN is missing or not valid.'
+const CONSTS = require('./consts/index.js')
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -9,18 +9,27 @@ const port = 8899
 app.use(cors())
 
 app.get('/product/:id', async (req, res) => {
-  const { params: { id } } = req
+  try {
+    const { params: { id } } = req
 
-  if (!id) return res.send(no_id_message)
+    if (!id) return res.send(no_id_message)
 
-  const ean = parseInt(id, 10)
-  if (isNaN(ean)) return res.send(no_id_message)
+    const ean = parseInt(id, 10)
 
-  const client = createOFFClient()
-  const product = await client.getProduct(ean)
+    if (isNaN(ean)) {
+      const { NO_ID_MESSAGE } = CONSTS
+      return res.send(NO_ID_MESSAGE)
+    }
 
-  res.send(product)
-  return;
+    const client = createOFFClient()
+    const product = await client.getProduct(ean)
+
+    res.send(product)
+    return;
+  } catch (error) {
+    const { PRODUCT_ERROR } = CONSTS
+    return res.send(PRODUCT_ERROR)
+  }
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}`))

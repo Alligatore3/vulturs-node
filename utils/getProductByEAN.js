@@ -5,12 +5,12 @@ async function getProductByEAN(req, res) {
   try {
     const { params: { id } } = req
 
-    if (!id) return res.send(no_id_message)
+    const { NO_ID_MESSAGE } = CONSTS
+    if (!id) return res.send(NO_ID_MESSAGE)
 
     const ean = parseInt(id, 10)
 
     if (isNaN(ean)) {
-      const { NO_ID_MESSAGE } = CONSTS
       return res.send(NO_ID_MESSAGE)
     }
 

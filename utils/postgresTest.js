@@ -1,8 +1,9 @@
+const CONSTS = require('../consts/index.js')
 const postgres = require('postgres');
 require('dotenv').config();
 
 const { NEAON_DATABASE_URL } = process.env;
-
+const { PRODUCT_ERROR, DBs_NAME } = CONSTS
 const sql = postgres(NEAON_DATABASE_URL, { ssl: 'require' });
 
 
@@ -12,12 +13,20 @@ const sql = postgres(NEAON_DATABASE_URL, { ssl: 'require' });
  * on the Neon Dashboard. For more information, see Connect from any application.
  * @see https://neon.tech/docs/guides/node#store-your-neon-credentials
  */
-async function getAll() {
-  const result = await sql`
-    select *
-    from Vulturs
-  `;
-  console.log(result);
+async function getAll(req, res) {
+  try {
+    const m = DBs_NAME.PRODUCTS
+    const allRecords = await sql`
+      select *
+      from ${m}
+    `;
+
+    res.send(allRecords)
+    return;
+  } catch (error) {
+    const { PRODUCT_ERROR } = CONSTS
+    return res.send(PRODUCT_ERROR)
+  }
 }
 
-getAll();
+module.exports = getAll

@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import * as postgres from 'postgres';
-import { createOFFClient } from '../../utils/createOFFClient.js';
-import { PRODUCT_ERROR, NO_ID_MESSAGE } from '../../consts/index.js';
+import { createOFFClient } from '#root/utils/createOFFClient';
+import { PRODUCT_ERROR, NO_ID_MESSAGE } from '#root/consts/index';
 
 /**
  * Add a .env file to your project directory and add your Neon connection string to it.

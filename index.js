@@ -1,5 +1,5 @@
-
-import { getProductByEAN } from './db/products/read.js'
+// @see https://stackoverflow.com/a/70161021/3301249
+import { getProductByEAN } from '#root/db/products/read'
 import express from 'express'
 import cors from 'cors'
 

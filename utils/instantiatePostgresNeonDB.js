@@ -8,6 +8,6 @@ export function instantiatePostgresNeonDB() {
    * on the Neon Dashboard. For more information, see Connect from any application.
    * @see https://neon.tech/docs/guides/node#store-your-neon-credentials
   */
-  const { NEAON_DATABASE_URL } = process.env;
-  return postgres.default(NEAON_DATABASE_URL, { ssl: 'require' });
+  const { NEON_DATABASE_URL } = process.env;
+  return postgres.default(NEON_DATABASE_URL, { ssl: 'require' });
 }
